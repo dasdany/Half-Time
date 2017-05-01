@@ -89,7 +89,8 @@ function drawMinuteCircle(ctx, cx, cy, date, radius) {
   ctx.fillStyle = 'black';
   ctx.textAlign = 'center';
   ctx.font = fontStyle;
-  ctx.fillText(date.getMinutes(), cx, (cy - fontNumber/2));
+  console.log(fontStyle);
+  ctx.fillText(date.getMinutes(), cx, (cy - 12));
 }
 
 function drawDate(ctx, cx, cy, length, side, date) {

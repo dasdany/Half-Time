@@ -5,8 +5,7 @@
     "name": "half-times",
     "pebble": {
         "capabilities": [
-            "location",
-            "configurable"
+            "location"
         ],
         "displayName": "Half-Times",
         "enableMultiJS": true,
@@ -22,7 +21,7 @@
         ],
         "uuid": "40f1ce49-ba08-4f62-9830-13b6dee5831e",
         "watchapp": {
-            "watchface": false
+            "watchface": true
         }
     },
     "version": "1.0.0"
