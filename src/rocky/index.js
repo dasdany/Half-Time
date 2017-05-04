@@ -1,4 +1,5 @@
 var rocky = require('rocky');
+var weatherImages = require('../common/weatherImages');
 
 var fontNumber = 18;
 var fontStyle = fontNumber + 'px bold Gothic';
@@ -111,7 +112,30 @@ function drawWeather(ctx, cx, cy, length, side, weather) {
   // Create a string describing the weather
   var weatherString = weather.celcius + 'ºC,'; // + weather.desc;
   // var weatherString = weather.fahrenheit + 'ºF,'; // + weather.desc;
-   
+
+  // get image
+  if (weather.icon) {
+    var icon = weatherImages[weather.icon];
+    var weather_icon = rocky.gdraw_command_image_create({
+      url: 'https://raw.githubusercontent.com/pebble-examples/cards-example/master/resources/Pebble_50x50_' + weather.icon + '.svg'
+    });
+
+    var started = new Date().getTime();
+    rocky.update_proc = function (ctx, bounds) {
+      gdraw_command_image_draw(ctx, svgImage, [15, 15]);
+
+      var elapsed = new Date().getTime() - started;
+      var frame = gdraw_command_sequence_get_frame_by_elapsed(pdcSequence, elapsed);
+      gdraw_command_frame_draw(ctx, pdcSequence, frame, [70, 40]);
+
+      // we want to keep the current frame of the animation for as long as its duration says,
+      // as we're picking each from based on the 'elapsed time' we just need to do nothing for the duration
+      // of the current frame and schedule a render pass after that
+      var frameDuration = gdraw_command_frame_get_duration(frame);
+      setTimeout(function(){rocky.mark_dirty()}, frameDuration);
+    };
+  }
+
   // Find the ent points
   var entPoints = getSideEntPoints(ctx, cx, cy, length, side, weatherString);
   

@@ -1,4 +1,5 @@
 // pkjs index.js
+var weatherImages = require('../common/weatherImages');
 
 var myAPIKey = 'ae6b87f2c452ad2fc00f8c7e768d2cd8';
 
@@ -31,7 +32,8 @@ Pebble.on('message', function(event) {
             // Convert from Kelvin
             'celcius': Math.round(weatherData.main.temp - 273.15),
             'fahrenheit': Math.round((weatherData.main.temp - 273.15) * 9 / 5 + 32),
-            'desc': weatherData.weather[0].main
+            'desc': weatherData.weather[0].main,
+            'icon': weatherData.weather[0].icon
           }
         });
       });
